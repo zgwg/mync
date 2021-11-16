@@ -31,24 +31,24 @@ func tcpServer(port string) {
 	for {
 		conn, err := lis.AcceptTCP()
 		if err!=nil{
-			fmt.Println("接收客服端错误！",err)
+			fmt.Println("接收客户端错误！",err)
 			os.Exit(-1)
 			return
 		}
-		fmt.Println("已经连接客服端"+conn.RemoteAddr().String())
+		fmt.Println("已经连接客户端"+conn.RemoteAddr().String())
 		isConnetion = true
 		serverConn = conn
 		for {
 			buff := make([]byte, 1500)
 			bufLen, err := conn.Read(buff)
 			if err != nil {
-				fmt.Println("已经断开客服端"+conn.RemoteAddr().String())
+				fmt.Println("已经断开客户端"+conn.RemoteAddr().String())
 				isConnetion = false
 				conn.Close()
 				break
 			}
 			if buff[0]==3{
-				fmt.Println("已经断开客服端"+conn.RemoteAddr().String())
+				fmt.Println("已经断开客户端"+conn.RemoteAddr().String())
 				isConnetion = false
 				conn.Close()
 				break
@@ -163,5 +163,6 @@ func main() {
 		if err!=nil{
 			fmt.Println("已断开连接，发送不成功！")
 		}
+
 	}
 }
