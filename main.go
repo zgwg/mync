@@ -47,6 +47,7 @@ func tcpServer(port string) {
 				conn.Close()
 				break
 			}
+
 			if buff[0]==3{
 				fmt.Println("已经断开客户端"+conn.RemoteAddr().String())
 				isConnetion = false
@@ -80,8 +81,9 @@ func scanAllTcpPort(ipAddr string)[]uint32{
 	var wg sync.WaitGroup
 	wg.Add(65535)
 	for port = 1;port<=65535;port++{
-		if atomic.LoadInt32(&goNum)>10000{
+		for atomic.LoadInt32(&goNum)>10000{
 			time.Sleep(time.Millisecond*10)
+			fmt.Println(goNum)
 		}
 		go func(p uint32){
 			atomic.AddInt32(&goNum,1)
