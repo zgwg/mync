@@ -83,8 +83,7 @@ func scanAllTcpPort(ipAddr string)[]uint32{
 	for port = 1;port<=65535;port++{
 		for atomic.LoadInt32(&goNum)>10000{
 			time.Sleep(time.Millisecond*10)
-			fmt.Println(goNum)
-		}
+			}
 		go func(p uint32){
 			atomic.AddInt32(&goNum,1)
 			defer wg.Done()
